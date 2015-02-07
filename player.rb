@@ -46,9 +46,8 @@ class Player
 
   def collect_friends(friends)
     count = friends.count
-    friends.reject! {|friend| Gosu::distance(@x, @y, friend.x, friend.y) < 35 }
+    friends.reject! {|friend| Gosu::distance(@x, @y, friend.x + 30, friend.y + 30) < 35 }
     if friends.count < count
-
       @roar.play
     end
   end
