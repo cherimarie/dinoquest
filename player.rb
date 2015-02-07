@@ -43,6 +43,10 @@ class Player
     end
   end
 
+  def collect_friends(friends)
+    friends.reject! {|friend| Gosu::distance(@x, @y, friend.x, friend.y) < 35 }
+  end
+
   def score
     @score
   end

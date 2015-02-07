@@ -1,6 +1,7 @@
 require 'gosu'
 require_relative 'player'
-require_relative 'black_hole'
+require_relative 'star'
+require_relative 'friend'
 require_relative 'zorder'
 
 class DinoSmashGame < Gosu::Window
@@ -12,10 +13,10 @@ class DinoSmashGame < Gosu::Window
     @background_image = Gosu::Image.new(self, "media/space.png", true)
 
     @player = Player.new(self)
-    @player.warp(320, 240)
+    @player.warp(400, 300)
 
-    @star_anim = Gosu::Image::load_tiles(self, "media/star.png", 25, 25, false)
-    @stars = Array.new
+    @friend_image = Gosu::Image.new(self, "media/punk-dino-single.png", true)
+    @friends = Array.new
 
   end
 
@@ -36,17 +37,18 @@ class DinoSmashGame < Gosu::Window
       @player.accelerate
     end
     @player.move
-    @player.collect_stars(@stars)
 
-    if rand(100) < 4 and @stars.size < 25 then
-      @stars.push(Star.new(@star_anim))
+    @player.collect_friends(@friends)
+
+    if rand(100) < 4 and @friends.size < 5 then
+      @friends.push(Friend.new(@friend_image))
     end
   end
 
   def draw
     @background_image.draw(0, 0, ZOrder::Background)
     @player.draw
-    @stars.each { |star| star.draw }
+    @friends.each { |friend| friend.draw }
   end
 
 end
