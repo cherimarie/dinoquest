@@ -1,6 +1,5 @@
 require 'gosu'
 require_relative 'player'
-require_relative 'star'
 require_relative 'friend'
 require_relative 'zorder'
 
@@ -17,6 +16,7 @@ class DinoSmashGame < Gosu::Window
 
     @friend_image = Gosu::Image.new(self, "media/punk-dino-single.png", true)
     @friends = Array.new
+    @congaline = Array.new
 
   end
 
@@ -38,7 +38,7 @@ class DinoSmashGame < Gosu::Window
     end
     @player.move
 
-    @player.collect_friends(@friends)
+    @player.collect_friends(@friends, @congaline)
 
     if rand(100) < 4 and @friends.size < 5 then
       @friends.push(Friend.new(@friend_image))
@@ -49,6 +49,7 @@ class DinoSmashGame < Gosu::Window
     @background_image.draw(0, 0, ZOrder::Background)
     @player.draw
     @friends.each { |friend| friend.draw }
+    @congaline.each { |partydino| partydino.conga_draw(@player) }
   end
 
 end

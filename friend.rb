@@ -11,4 +11,8 @@ class Friend
   def draw
     @animation.draw(@x, @y, 1)
   end
+
+  def conga_draw(player)
+    @animation.draw(player.x - 120, player.y - 30, 1)
+  end
 end
