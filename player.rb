@@ -4,6 +4,7 @@ class Player
     @dino = dino_arr[0]
     @x = @y = @vel_x = @vel_y = @angle = 0.0
     @score = 0
+    @roar = Gosu::Sample.new(window, "media/trex-roar.mp3")
   end
 
   def warp(x, y)
@@ -34,7 +35,7 @@ class Player
   end
 
   def draw
-    @dino.draw_rot(@x, @y, 1, @angle)
+    @dino.draw_rot(@x, @y, 1, (@angle - 90) )
   end
 
   def collect_stars(stars)
@@ -44,7 +45,12 @@ class Player
   end
 
   def collect_friends(friends)
+    count = friends.count
     friends.reject! {|friend| Gosu::distance(@x, @y, friend.x, friend.y) < 35 }
+    if friends.count < count
+
+      @roar.play
+    end
   end
 
   def score
