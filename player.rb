@@ -1,5 +1,5 @@
 class Player
-  attr_reader :x, :y
+  attr_accessor :x, :y
 
   def initialize(window)
     dino_arr = Gosu::Image.load_tiles(window, "media/monster-lizard.png", 80, 56, true)

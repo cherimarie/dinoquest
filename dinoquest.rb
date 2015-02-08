@@ -43,13 +43,20 @@ class DinoSmashGame < Gosu::Window
     if rand(100) < 4 and @friends.size < 5 then
       @friends.push(Friend.new(@friend_image))
     end
+
+    @congaline.each_with_index do |partydino, i|
+      partydino.x = @player.x - (120 * (i + 1))
+      partydino.y = @player.y - (30 * (i + 1))
+    end
   end
 
   def draw
     @background_image.draw(0, 0, ZOrder::Background)
     @player.draw
     @friends.each { |friend| friend.draw }
-    @congaline.each { |partydino| partydino.conga_draw(@player) }
+    @congaline.each do |partydino|
+      @friend_image.draw(partydino.x, partydino.y, 1)
+    end
   end
 
 end
