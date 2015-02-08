@@ -2,8 +2,9 @@ class Player
   attr_accessor :x, :y
 
   def initialize(window)
-    dino_arr = Gosu::Image.load_tiles(window, "media/monster-lizard.png", 80, 56, true)
-    @dino = dino_arr[0]
+    @dino_arr = Gosu::Image.load_tiles(window, "media/monster-lizard.png", 80, 56, true)
+    @frame = 0
+    @animation_counter = 0
     @x = @y = @vel_x = @vel_y = @angle = 0.0
     @score = 0
     @roar = Gosu::Sample.new(window, "media/trex-roar.mp3")
@@ -37,7 +38,13 @@ class Player
   end
 
   def draw
-    @dino.draw_rot(@x, @y, 1, (@angle - 90) )
+    if @frame <= 9 && @animation_counter == 3
+      @frame = (@frame + 1) % 10
+      @animation_counter = 0
+    elsif @animation_counter < 3
+      @animation_counter += 1
+    end
+    @dino_arr[@frame].draw_rot(@x, @y, 1, (@angle - 90) )
   end
 
   def collect_stars(stars)
