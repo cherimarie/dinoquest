@@ -7,7 +7,7 @@ class DinoSmashGame < Gosu::Window
 
   def initialize( width=800, height=600, fullscreen=false)
     super
-    self.caption = "DINOSAUR CRUSH!"
+    self.caption = "Make Dinosaur Friends in Space!"
 
     @background_image = Gosu::Image.new(self, "media/space.png", true)
 

@@ -8,6 +8,7 @@ class Player
     @x = @y = @vel_x = @vel_y = @angle = 0.0
     @score = 0
     @roar = Gosu::Sample.new(window, "media/trex-roar.mp3")
+    @loco = Gosu::Sample.new(window, "media/locomotion_short.mp3")
   end
 
   def warp(x, y)
@@ -56,7 +57,8 @@ class Player
   def collect_friends(friends, congaline)
     friends.reject! do |friend|
       if Gosu::distance(@x, @y, friend.x + 45, friend.y + 45) < 45
-        @roar.play
+        @roar.play if congaline.length < 2
+        @loco.play if (congaline.length >= 2) && (congaline.length % 3 == 0)
         congaline.push friend
         true
       else
