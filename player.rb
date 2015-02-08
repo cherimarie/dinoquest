@@ -1,4 +1,6 @@
 class Player
+  attr_accessor :x, :y
+
   def initialize(window)
     dino_arr = Gosu::Image.load_tiles(window, "media/monster-lizard.png", 80, 56, true)
     @dino = dino_arr[0]
@@ -44,12 +46,15 @@ class Player
     end
   end
 
-  def collect_friends(friends)
-    count = friends.count
-    friends.reject! {|friend| Gosu::distance(@x, @y, friend.x, friend.y) < 35 }
-    if friends.count < count
-
-      @roar.play
+  def collect_friends(friends, congaline)
+    friends.reject! do |friend|
+      if Gosu::distance(@x, @y, friend.x + 45, friend.y + 45) < 45
+        @roar.play
+        congaline.push friend
+        true
+      else
+        false
+      end
     end
   end
 
